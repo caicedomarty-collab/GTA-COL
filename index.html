@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colombia GTA - Vice City Style</title>
+    <title>Colombia GTA — Vice City</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -12,81 +12,79 @@
         <div class="loader">
             <h1>COLOMBIA GTA</h1>
             <p>Cargando ciudad...</p>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
         </div>
     </div>
 
     <div id="menu" style="display:none">
         <div class="menu-content">
             <h1>COLOMBIA GTA</h1>
-            <h2>Vice City Style</h2>
+            <h2>Vice City · Edición Definitiva</h2>
             <div class="menu-buttons">
-                <button id="btn-play">Nueva Partida</button>
-                <button id="btn-missions">Misiones</button>
+                <button id="btn-play" class="sel">Nueva Partida</button>
                 <button id="btn-controls">Controles</button>
                 <button id="btn-about">Acerca de</button>
             </div>
+            <div class="menu-foot">100 misiones · Playa y océano · Autos, motos, barcos, aviones y tanques · Armas · Policía</div>
         </div>
     </div>
 
+    <!-- HUD estilo GTA Vice City -->
     <div id="hud" style="display:none">
-        <!-- HUD superior derecho estilo GTA -->
         <div id="hud-top-right">
-            <!-- Estrellas de búsqueda -->
-            <div id="wanted-stars">
-                <span class="wanted-star">★</span>
-                <span class="wanted-star">★</span>
-                <span class="wanted-star">★</span>
-                <span class="wanted-star">★</span>
-                <span class="wanted-star">★</span>
+            <div id="armor-row">
+                <div id="armor-bar"><div id="armor-fill"></div></div>
+                <div id="armor-icon">🛡️</div>
             </div>
-            
-            <!-- Salud y armadura -->
-            <div id="health-armor">
-                <div class="hud-icon-group">
-                    <span class="hud-icon">❤️</span>
-                    <div id="health-bar-hud">
-                        <div id="health-fill-hud"></div>
-                    </div>
-                </div>
-                <div class="hud-icon-group">
-                    <span class="hud-icon">🛡️</span>
-                    <div id="armor-bar-hud">
-                        <div id="armor-fill-hud"></div>
-                    </div>
-                </div>
+            <div id="health-row">
+                <div id="health-icon">❤️</div>
+                <div id="health-num">100</div>
             </div>
-            
-            <!-- Dinero -->
-            <div id="money-hud">$0</div>
+            <div id="stars-row">
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <div id="money">$0</div>
         </div>
 
-        <!-- Misión actual -->
-        <div id="current-mission-hud">
-            <div id="mission-title-hud">Sin misión</div>
-            <div id="mission-desc-hud">Presiona M para misiones</div>
+        <div id="mission-box">
+            <div id="mission-name">Sin misión</div>
+            <div id="mission-goal"></div>
         </div>
 
-        <!-- Minimapa circular -->
-        <div id="minimap-container">
-            <canvas id="minimap-canvas" width="160" height="160"></canvas>
-            <div id="minimap-player"></div>
+        <div id="crosshair"></div>
+
+        <div id="weapon-slot">
+            <span id="wep-icon">🔫</span>
+            <span id="wep-name">Pistola</span>
+            <span id="wep-ammo">∞</span>
         </div>
 
-        <!-- Controles -->
-        <div id="controls-hint">
-            WASD: Mover<br>
-            Espacio: Saltar<br>
-            E: Vehículo<br>
-            M: Misiones
+        <div id="speedo" style="display:none">
+            <div id="speed-num">0</div>
+            <div id="speed-unit">KM/H</div>
+        </div>
+
+        <div id="radar">
+            <canvas id="radar-canvas" width="170" height="170"></canvas>
+            <div id="radar-arrow"></div>
+        </div>
+
+        <div id="controls-hint">WASD/flechas mover · Clic disparar · 1-3 armas · E vehículo · M misiones · ESC pausa</div>
+    </div>
+
+    <!-- Pausa -->
+    <div id="pause" style="display:none">
+        <div class="pause-box">
+            <h2>PAUSA</h2>
+            <button id="btn-resume" class="sel">Reanudar</button>
+            <button id="btn-restart">Reiniciar partida</button>
+            <button id="btn-quit">Menú principal</button>
         </div>
     </div>
 
     <div id="mission-panel">
         <div class="panel-content">
-            <h2>Lista de Misiones</h2>
+            <h2>Misiones</h2>
             <div id="missions-list"></div>
             <button id="btn-close-missions">Cerrar</button>
         </div>
@@ -98,21 +96,14 @@
     <script src="city.js"></script>
     <script src="player.js"></script>
     <script src="missions.js"></script>
-    
     <script>
         document.getElementById('btn-play').onclick = startGame;
-        document.getElementById('btn-missions').onclick = function() {
-            alert('Presiona M durante el juego para ver misiones');
-        };
-        document.getElementById('btn-controls').onclick = function() {
-            alert('Controles:\n\nWASD - Mover\nEspacio - Saltar\nE - Vehículo\nM - Misiones\n\nCámara estilo GTA en tercera persona');
-        };
-        document.getElementById('btn-about').onclick = function() {
-            alert('Colombia GTA - Vice City Style\n\nJuego 3D estilo GTA Vice City\nambientado en Colombia.\n\n100 misiones | Mundo abierto | Vehículos');
-        };
-        document.getElementById('btn-close-missions').onclick = function() {
-            document.getElementById('mission-panel').style.display = 'none';
-        };
+        document.getElementById('btn-controls').onclick = () => alert('WASD o FLECHAS - Mover / conducir\nESPACIO - Saltar / subir en avión\nSHIFT - Correr\nCLIC - Disparar\n1 / 2 / 3 - Pistola / Subfusil / Escopeta\nE - Entrar / salir vehículo\nM - Misiones\nESC - Pausa\nRatón - Cámara');
+        document.getElementById('btn-about').onclick = () => alert('Colombia GTA - Vice City · Edición Definitiva\n\nMundo abierto 3D: ciudad, playa y océano.\nVehículos: autos, motos, barcos, aviones y tanques.\nArmas: pistola, subfusil y escopeta.\n100 misiones, policía con sistema de búsqueda, casas francas.\n\nHecho con Three.js');
+        document.getElementById('btn-close-missions').onclick = closeMissions;
+        document.getElementById('btn-resume').onclick = resumeGame;
+        document.getElementById('btn-restart').onclick = () => { localStorage.removeItem('cgta_save'); location.reload(); };
+        document.getElementById('btn-quit').onclick = quitToMenu;
     </script>
 </body>
 </html>
