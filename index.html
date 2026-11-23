@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colombia GTA - Ciudad Natal 3D</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="loading">
+        <div class="loader">
+            <h1>COLOMBIA GTA</h1>
+            <p>Cargando ciudad...</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu" style="display:none">
+        <div class="menu-content">
+            <h1>COLOMBIA GTA</h1>
+            <h2>Ciudad Natal</h2>
+            <div class="menu-buttons">
+                <button id="btn-play">Nueva Partida</button>
+                <button id="btn-missions">Misiones</button>
+                <button id="btn-controls">Controles</button>
+                <button id="btn-about">Acerca de</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="hud" style="display:none">
+        <div id="minimap">
+            <canvas id="minimap-canvas" width="200" height="200"></canvas>
+            <div id="minimap-player"></div>
+        </div>
+        <div id="health-bar">
+            <div id="health-fill"></div>
+            <span id="health-text">100</span>
+        </div>
+        <div id="money">$0</div>
+        <div id="current-mission">
+            <div id="mission-title">Sin misión activa</div>
+            <div id="mission-desc"></div>
+        </div>
+        <div id="controls-hint">WASD: Mover | E: Vehículo | Espacio: Saltar | M: Misiones</div>
+    </div>
+
+    <div id="mission-panel" style="display:none">
+        <div class="panel-content">
+            <h2>Lista de Misiones</h2>
+            <div id="missions-list"></div>
+            <button id="btn-close-missions">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="game-container"></div>
+
+    <script src="js/game.js"></script>
+    <script src="js/city.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/missions.js"></script>
+    
+    <script>
+        // Event listeners para botones del menú
+        document.getElementById('btn-play').onclick = startGame;
+        
+        document.getElementById('btn-missions').onclick = function() {
+            alert('Panel de misiones: Presiona M durante el juego');
+        };
+        
+        document.getElementById('btn-controls').onclick = function() {
+            alert('Controles:\nWASD - Mover\nEspacio - Saltar\nE - Vehículo\nM - Misiones');
+        };
+        
+        document.getElementById('btn-about').onclick = function() {
+            alert('Colombia GTA - Ciudad Natal\n\nUn juego de mundo abierto ambientado en Colombia.\n100 misiones, historia, vehículos y más.\n\nDesarrollado con Three.js');
+        };
+        
+        document.getElementById('btn-close-missions').onclick = function() {
+            document.getElementById('mission-panel').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
