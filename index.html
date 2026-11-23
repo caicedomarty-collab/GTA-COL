@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colombia GTA - Ciudad Natal 3D</title>
+    <title>Colombia GTA - Vice City Style</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -21,7 +21,7 @@
     <div id="menu" style="display:none">
         <div class="menu-content">
             <h1>COLOMBIA GTA</h1>
-            <h2>Ciudad Natal</h2>
+            <h2>Vice City Style</h2>
             <div class="menu-buttons">
                 <button id="btn-play">Nueva Partida</button>
                 <button id="btn-missions">Misiones</button>
@@ -32,23 +32,59 @@
     </div>
 
     <div id="hud" style="display:none">
-        <div id="minimap">
-            <canvas id="minimap-canvas" width="200" height="200"></canvas>
+        <!-- HUD superior derecho estilo GTA -->
+        <div id="hud-top-right">
+            <!-- Estrellas de búsqueda -->
+            <div id="wanted-stars">
+                <span class="wanted-star">★</span>
+                <span class="wanted-star">★</span>
+                <span class="wanted-star">★</span>
+                <span class="wanted-star">★</span>
+                <span class="wanted-star">★</span>
+            </div>
+            
+            <!-- Salud y armadura -->
+            <div id="health-armor">
+                <div class="hud-icon-group">
+                    <span class="hud-icon">❤️</span>
+                    <div id="health-bar-hud">
+                        <div id="health-fill-hud"></div>
+                    </div>
+                </div>
+                <div class="hud-icon-group">
+                    <span class="hud-icon">🛡️</span>
+                    <div id="armor-bar-hud">
+                        <div id="armor-fill-hud"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dinero -->
+            <div id="money-hud">$0</div>
+        </div>
+
+        <!-- Misión actual -->
+        <div id="current-mission-hud">
+            <div id="mission-title-hud">Sin misión</div>
+            <div id="mission-desc-hud">Presiona M para misiones</div>
+        </div>
+
+        <!-- Minimapa circular -->
+        <div id="minimap-container">
+            <canvas id="minimap-canvas" width="160" height="160"></canvas>
             <div id="minimap-player"></div>
         </div>
-        <div id="health-bar">
-            <div id="health-fill"></div>
-            <span id="health-text">100</span>
+
+        <!-- Controles -->
+        <div id="controls-hint">
+            WASD: Mover<br>
+            Espacio: Saltar<br>
+            E: Vehículo<br>
+            M: Misiones
         </div>
-        <div id="money">$0</div>
-        <div id="current-mission">
-            <div id="mission-title">Sin misión activa</div>
-            <div id="mission-desc"></div>
-        </div>
-        <div id="controls-hint">WASD: Mover | E: Vehículo | Espacio: Saltar | M: Misiones</div>
     </div>
 
-    <div id="mission-panel" style="display:none">
+    <div id="mission-panel">
         <div class="panel-content">
             <h2>Lista de Misiones</h2>
             <div id="missions-list"></div>
@@ -64,21 +100,16 @@
     <script src="missions.js"></script>
     
     <script>
-        // Event listeners para botones del menú
         document.getElementById('btn-play').onclick = startGame;
-        
         document.getElementById('btn-missions').onclick = function() {
-            alert('Panel de misiones: Presiona M durante el juego');
+            alert('Presiona M durante el juego para ver misiones');
         };
-        
         document.getElementById('btn-controls').onclick = function() {
-            alert('Controles:\nWASD - Mover\nEspacio - Saltar\nE - Vehículo\nM - Misiones');
+            alert('Controles:\n\nWASD - Mover\nEspacio - Saltar\nE - Vehículo\nM - Misiones\n\nCámara estilo GTA en tercera persona');
         };
-        
         document.getElementById('btn-about').onclick = function() {
-            alert('Colombia GTA - Ciudad Natal\n\nUn juego de mundo abierto ambientado en Colombia.\n100 misiones, historia, vehículos y más.\n\nDesarrollado con Three.js');
+            alert('Colombia GTA - Vice City Style\n\nJuego 3D estilo GTA Vice City\nambientado en Colombia.\n\n100 misiones | Mundo abierto | Vehículos');
         };
-        
         document.getElementById('btn-close-missions').onclick = function() {
             document.getElementById('mission-panel').style.display = 'none';
         };
